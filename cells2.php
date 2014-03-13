@@ -74,7 +74,7 @@
 		}
 
 		private function grow() {
-			for($n; $n < $this->generations; $n++) {
+			for($n = 0; $n < $this->generations; $n++) {
 				$this->output_array[] = $this->cells;
 				$this->divide();
 			}
