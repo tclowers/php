@@ -1,13 +1,98 @@
 <html>
 	<head>
 		<title>Cellular Automata</title>
-		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-		<script src="cells.js"></script>
+		<!--<script src="cells.js"></script>-->
+		<script type="text/javascript">
+			var running = true;
+
+			var toType = function(obj) {
+			  return ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase()
+			}
+
+			var get_cells = function() {
+				$.ajax({
+					url: 'Automata.php',
+					type: 'GET',
+					dataType: 'json',
+					success: function(result) {
+						var content = '';
+						$.each(result, function(index, row) {
+								for(var a = 0; a < row.length; a++) {
+									if (row[a]) {
+										content += "<i class='fa fa-circle cell'></i>";
+									} else {
+										content += "<i class='fa fa-circle-o cell'></i>";
+									}
+								}
+							content += "<br/>";
+						});
+						$('.generations').html(content);
+						if(running) {
+							get_cells(running);					
+						}
+
+						
+					},
+					error: function(request, errorType, errorMessage) {
+						console.log('Error: ' + errorType + ' with message: ' + errorMessage);
+					}
+				});	
+			}
+
+			$(document).ready(function(){
+				$('.go').on('click', function() {
+					event.preventDefault();
+					running = true;
+					get_cells(running);
+				});
+
+				$('.stop').on('click', function() {
+					event.preventDefault();
+					running = false;
+				});
+			});
+		</script>
+		<style type="text/css">
+			body {
+				background-color: black;
+			}
+			.cell {
+				color: #00CED1;
+			}
+			.generations {
+				position: relative;
+				margin-top: 25px;
+			}
+			.container {
+				width: 75%;
+				position: relative;
+				margin: 20px auto;
+				text-align: center;
+			}
+			.button {
+				color: #00CED1;
+				text-decoration: none;
+				font-family: Verdana, Arial, Sans-serif;
+				font-size: 2.6em;
+				margin: 60px 100px;
+			}
+			.controls {
+				display: inline;
+				position: relative;
+				width: 100%;
+				text-align: center;
+				margin: 40px auto;
+			}
+		</style>
 	</head>
 	<body>
-		<a href="#" class="go">Go!</a><br/>
-		<a href="#" class="stop">Stop!</a>
-		<div class="generations"></div>
+		<div class="container">
+			<div class="controls">
+				<a href="#" class="go button">GO</a>  |  <a href="#" class="stop button">STOP</a>
+			</div>
+			<div class="generations"></div>
+		</div>
 	</body>
 </html>
