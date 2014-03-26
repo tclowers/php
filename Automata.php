@@ -36,17 +36,6 @@
 			return $arr;
 		}
 
-		/*private function print_cells() {
-			foreach ($this->cells as $cell) {
-				if($cell == True) {
-					$this->output_string .= "<i class='fa fa-circle'></i>";
-				} else {
-					$this->output_string .= "<i class='fa fa-circle-o'></i>";
-				}
-			}
-			$this->output_string .= "<br />";
-		}*/
-
 		private function divide() {
 			$new_cells = array();
 			for($a = 0; $a < count($this->cells); $a++) {

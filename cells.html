@@ -46,11 +46,15 @@
 					event.preventDefault();
 					running = true;
 					get_cells(running);
+					$('.go').css('display', 'none');
+					$('.stop').css('display', 'inline');
 				});
 
 				$('.stop').on('click', function() {
 					event.preventDefault();
 					running = false;
+					$('.stop').css('display', 'none');
+					$('.go').css('display', 'inline');
 				});
 			});
 		</script>
@@ -85,12 +89,18 @@
 				text-align: center;
 				margin: 40px auto;
 			}
+			.go {
+				display: inline;
+			}
+			.stop {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 			<div class="controls">
-				<a href="#" class="go button">GO</a>  |  <a href="#" class="stop button">STOP</a>
+				<a href="#" class="go button">GO</a><a href="#" class="stop button">STOP</a>
 			</div>
 			<div class="generations"></div>
 		</div>
